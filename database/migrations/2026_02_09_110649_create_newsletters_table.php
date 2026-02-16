@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('content');
             $table->string('status')->default(NewsletterStatusEnum::draft->value);
+            $table->foreignUlid('batch_id')->constrained('job_batches')->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -212,7 +212,7 @@ return [
         ],
         'notifications' => [
             'connection' => 'redis',
-            'queue' => ['newsletter'],
+            'queue' => ['newsletter', 'newsletter:send'],
             'balance' => 'auto',
             'autoScalingStrategy' => 'time',
             'maxProcesses' => 20,

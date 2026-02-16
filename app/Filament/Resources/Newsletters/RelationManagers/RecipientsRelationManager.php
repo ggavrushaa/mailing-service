@@ -2,12 +2,13 @@
 
 namespace App\Filament\Resources\Newsletters\RelationManagers;
 
-use App\Filament\Resources\Newsletters\NewsletterResource;
 use Dom\Text;
-use Filament\Actions\CreateAction;
-use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Actions\CreateAction;
+use App\NewsletterRecipientStatusEnum;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class RecipientsRelationManager extends RelationManager
 {
@@ -18,9 +19,12 @@ class RecipientsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->poll('5s')
+            ->defaultSort('id', 'desc')
             ->heading('Recipients')
             ->emptyStateHeading('No Recipients')
             ->emptyStateDescription('Import Recipients')
+            ->recordTitleAttribute('id')
             ->columns([
                 TextColumn::make('id')
                     ->label('ID'),
@@ -30,10 +34,18 @@ class RecipientsRelationManager extends RelationManager
 
                 TextColumn::make('user.email')
                     ->label('Email'),
-                    
+
                 TextColumn::make('status')
                     ->label('Status')
                     ->badge(),
+            ])
+            ->filters([
+                SelectFilter::make('status')
+                    ->label('Status')
+                    ->options(NewsletterRecipientStatusEnum::class),
+            ])
+            ->headerActions([
+                CreateAction::make(),
             ]);
     }
 }

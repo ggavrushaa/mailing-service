@@ -1,4 +1,5 @@
 <?php
+
 namespace App;
 
 use Filament\Support\Contracts\HasColor;
@@ -29,5 +30,25 @@ enum NewsletterStatusEnum: string implements HasColor, HasLabel
             self::completed => 'success',
             self::stopped => 'danger',
         };
+    }
+
+    public function isDraft(): bool
+    {
+        return $this === self::draft;
+    }
+
+    public function isSending(): bool
+    {
+        return $this === self::sending;
+    }
+
+    public function isCompleted(): bool
+    {
+        return $this === self::completed;
+    }
+
+    public function isStopped(): bool
+    {
+        return $this === self::stopped;
     }
 }

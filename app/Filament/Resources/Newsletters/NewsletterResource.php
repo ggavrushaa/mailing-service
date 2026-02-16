@@ -16,6 +16,7 @@ use App\Filament\Resources\Newsletters\RelationManagers\RecipientsRelationManage
 use App\Filament\Resources\Newsletters\Schemas\NewsletterForm;
 use App\Filament\Resources\Newsletters\Tables\NewslettersTable;
 use App\Filament\Resources\Newsletters\Schemas\NewsletterInfolist;
+use App\Filament\Resources\Newsletters\Widgets\NewsletterOverviewWidget;
 
 class NewsletterResource extends Resource
 {
@@ -58,6 +59,13 @@ class NewsletterResource extends Resource
             'create' => CreateNewsletter::route('/create'),
             'view' => ViewNewsletter::route('/{record}'),
             'edit' => EditNewsletter::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            NewsletterOverviewWidget::class,
         ];
     }
 }
